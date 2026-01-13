@@ -1,4 +1,4 @@
-# 📧 Gmail to Google Sheets Automation Pipeline (Python)
+# 📌 Gmail to Google Sheets Automation Pipeline (Python)
 
 **Author:** Hashmalika Chalse
 
@@ -23,7 +23,7 @@ This project is a Python automation system that:
 
 ---
 
-## 🏗️ High-Level Architecture
+## 📌 High-Level Architecture
 
 ```
 +------------------+
@@ -43,7 +43,7 @@ This project is a Python automation system that:
 
 ---
 
-## 📂 Project Structure
+## 📌 Project Structure
 
 ```
 gmail-to-sheets-automation/
@@ -67,7 +67,7 @@ gmail-to-sheets-automation/
 
 ---
 
-## ⚙️ Tech Stack
+## 📌 Tech Stack
 
 - Python 3  
 - Gmail API  
@@ -82,7 +82,7 @@ gmail-to-sheets-automation/
 
 ---
 
-## 🔐 OAuth Flow Used
+## 📌 OAuth Flow Used
 
 This project uses **OAuth 2.0 Installed App Flow**:
 
@@ -99,7 +99,7 @@ This project uses **OAuth 2.0 Installed App Flow**:
 
 ---
 
-## 🧠 How Duplicate Prevention Works
+## 📌 How Duplicate Prevention Works
 
 Two layers of safety:
 
@@ -132,7 +132,7 @@ On each run:
 
 ---
 
-## 🧠 Why This State Storage Was Chosen
+## 📌 Why This State Storage Was Chosen
 
 - Lightweight (no database needed)  
 - Human-readable  
@@ -256,7 +256,7 @@ Also record a **2–3 minute screen video** showing:
 
 ---
 
-## 🧪 Example Use Cases
+## 📌 Example Use Cases
 
 - Customer support logging  
 - Invoice email tracking  
@@ -275,7 +275,7 @@ Also record a **2–3 minute screen video** showing:
 
 ---
 
-## 🧗 Challenges Faced
+## 📌 Challenges Faced
 
 ### 1. Parsing HTML Emails
 
@@ -292,7 +292,7 @@ Solved using:
 
 ---
 
-## 🚫 Limitations
+## 📌 Limitations
 
 - Only reads inbox (not spam/promotions)  
 - Very large inbox pagination not implemented  
@@ -307,3 +307,4 @@ Solved using:
 - ✔ Duplicate prevention  
 - ✔ Persistent state storage  
 - ✔ Safe re-run behavior  
+
