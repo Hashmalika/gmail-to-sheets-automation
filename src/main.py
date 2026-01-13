@@ -1,11 +1,30 @@
 import os
 import json
 
+import datetime
 from .gmail_service import get_gmail_service
 from .sheets_service import append_rows
 from .email_parser import extract_email_data
 from config import STATE_FILE
 
+import time
+from functools import wraps
+
+def retry_on_exception(max_retries=3, delay=2):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            retries = 0
+            while retries < max_retries:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    retries += 1
+                    log(f"Error: {e}. Retry {retries}/{max_retries} in {delay}s...")
+                    time.sleep(delay)
+            raise Exception(f"Failed after {max_retries} retries.")
+        return wrapper
+    return decorator
 
 def load_state():
     if os.path.exists(STATE_FILE):
@@ -17,14 +36,22 @@ def save_state(last_id):
     with open(STATE_FILE, "w") as f:
         json.dump({"last_id": last_id}, f)
 
+
+def log(message):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"[{timestamp}] {message}")
 def main():
     service = get_gmail_service()
     state = load_state()
+    
+    SUBJECT_KEYWORD = "Invoice"  # Change as needed
+    query = f"is:unread in:inbox subject:{SUBJECT_KEYWORD}"
 
     results = service.users().messages().list(
-        userId="me",
-        q="is:unread in:inbox"
+      userId="me",
+      q=query
     ).execute()
+    
 
     messages = results.get("messages", [])
     if not messages:
@@ -61,7 +88,9 @@ def main():
     if rows:
         append_rows(rows)
         save_state(newest_id)
-        print(f"Added {len(rows)} emails to sheet.")
+        log(f"Added {len(rows)} emails to sheet.")
+
+
 
 if __name__ == "__main__":
     main()
